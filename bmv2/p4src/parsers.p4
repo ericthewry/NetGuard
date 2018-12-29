@@ -19,7 +19,6 @@ parser parse_ethernet {
 	set_metadata(meta.eth_sa,ethernet.src_addr);
 	return select(latest.etherType) {
 		ETHERTYPE_IPV4 : parse_ipv4;
-		default: ingress;
 	}
 }
 
@@ -62,7 +61,6 @@ parser parse_ipv4 {
 	set_metadata(meta.tcp_length, ipv4.totalLen - 20);	
 	return select(ipv4.protocol) {
 		IP_PROT_TCP : parse_tcp;
-		default: ingress;
 	}
 }
 
